@@ -10,6 +10,13 @@ __pycache__/
 # C extensions
 *.so
 
+.idea
+..idea
+.idea/
+..idea/
+.idea/*
+idea/*
+
 # Distribution / packaging
 .Python
 build/
