@@ -1,6 +1,8 @@
+import os
+
 
 # Local Files
-from src.vectorization import generate_embeddings, get_text_embedding
+from src.vectorization import get_text_embedding
 from src.const import ADMIN_KEY
 
 # External Dependencies 
@@ -8,8 +10,18 @@ import numpy as np
 import singlestoredb as s2
 
 
+# Get and check if the entered path is valid
+def get_valid_path()->str:
+    path = None
+    while True:
+            path = input('Enter the directory of images')
+            if os.path.exists(path=path):
+                break
+    return path
+
+
+# Normalize vector embeddings
 def normalize(vector: np.array) -> np.array:
-    """Normalize the vector."""
     mean = vector.mean()
     std = vector.std()
     if std == 0:  # Avoid division by zero
@@ -17,6 +29,7 @@ def normalize(vector: np.array) -> np.array:
     return (vector - mean) / std
 
 
+# Get cosine simiarlity score between two embedding vectors
 def get_similarity_score(vector1: np.array, vector2: np.array) -> float:
     """Calculate cosine similarity between two vectors."""
     return np.dot(normalize(vector1), normalize(vector2))

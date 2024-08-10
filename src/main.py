@@ -1,14 +1,25 @@
+import os
+
+
 # Local Files
-from src.utils import get_highest_similarity_image
+from src.utils import get_highest_similarity_image, get_valid_path
+from src.vector_database import store_embeddings_db
 
 
 def run_CLI():
+
+    # Get the input directory from the user
+    path = get_valid_path()
+
+    # Store the images in the directory
+    store_embeddings_db(images_folder=path)
+
     # Take input from the user
     user_text = input("Enter the text to find similar images: ")
     top_n = int(input("Enter the number of top similar images to retrieve: "))
 
     # Call the function to get top N similar images
-    similar_images = get_highest_similarity_image(user_text, top_n)
+    similar_images = get_highest_similarity_image(text=user_text, top_n=top_n)
 
     # Display the results
     if similar_images:
