@@ -10,7 +10,7 @@ __pycache__/
 # C extensions
 *.so
 
-.src/sarasaihack-firebase-adminsdk-8bmuc-f00c1f7f00.json
+*.json
 
 # Distribution / packaging
 .Python
