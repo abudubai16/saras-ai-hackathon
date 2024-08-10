@@ -1,3 +1,3 @@
-from src.run import run_CLI
+from src.run import run_gui
 
-run_CLI()
+run_gui()

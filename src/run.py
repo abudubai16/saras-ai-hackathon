@@ -34,6 +34,6 @@ def run_gui():
     subprocess.Popen('streamlit run src/gui.py', shell=True)
 
 
-if __name__ == "__main__":
-    run_CLI()
+if __name__ == "__main__
+    run_gui(
     pass
