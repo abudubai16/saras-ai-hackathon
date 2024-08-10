@@ -1,4 +1,4 @@
-import os
+import subprocess
 
 
 # Local Files
@@ -31,7 +31,7 @@ def run_CLI():
 
 
 def run_gui():
-    pass
+    subprocess.Popen('streamlit run src/gui.py', shell=True)
 
 
 if __name__ == "__main__":
