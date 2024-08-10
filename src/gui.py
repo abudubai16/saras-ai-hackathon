@@ -81,11 +81,12 @@ def main():
 
                 # Display images in a grid
                 cols = st.columns(3)
-                for i, img_url in enumerate(images):
+                for i, (img_url, _) in enumerate(images):
                     with cols[i % 3]:
                         st.image(img_url)
             else:
                 st.error("Please enter a description before searching.")
+
 
 if __name__ == "__main__":
     main()

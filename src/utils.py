@@ -1,14 +1,7 @@
 import os
-
-
-# Local Files
-from src.vectorization import get_text_embedding
-from src.const import ADMIN_KEY
-
-# External Dependencies 
 import numpy as np
-import singlestoredb as s2
-
+from firebase_config import db
+from src.vectorization import get_text_embedding
 
 # Get and check if the entered path is valid
 def get_valid_path()->str:
@@ -38,15 +31,11 @@ def get_similarity_score(vector1: np.array, vector2: np.array) -> float:
 def get_highest_similarity_image(text: str, top_n: int) -> list:
     """Retrieve the top N images with the highest similarity to the given text."""
     try:
-        # Create a connection to the database
-        with s2.connect(ADMIN_KEY) as conn:
-            with conn.cursor() as cur:
-                # Fetch all image paths and embeddings
-                cur.execute('SELECT image_path, embedding FROM image_embeddings')
-                image_embeddings = cur.fetchall()
-
+        # Reference to Firestore collection
+        embeddings_ref = db.collection('image_embeddings')
+        image_embeddings = [doc.to_dict() for doc in embeddings_ref.stream()]
     except Exception as e:
-        print(f"Error connecting to database or fetching data: {e}")
+        print(f"Error connecting to Firestore or fetching data: {e}")
         return []
 
     try:
@@ -55,14 +44,15 @@ def get_highest_similarity_image(text: str, top_n: int) -> list:
         text_embed = normalize(text_embed)
 
         similarities = []
-        for image_path, embedding in image_embeddings:
-            image_embed = np.frombuffer(embedding, dtype=np.float32)
+        for doc in image_embeddings:
+            image_path = doc['image_path']
+            image_embed = np.array(doc['embedding'], dtype=np.float32)
             image_embed = normalize(image_embed)
             similarity_score = get_similarity_score(text_embed, image_embed)
             similarities.append((image_path, similarity_score))
 
         # Sort and return top N results
-        similarities.sort(key=lambda x: x[1], reverse=False)
+        similarities.sort(key=lambda x: x[1], reverse=True)
         return similarities[:top_n]
 
     except Exception as e:
