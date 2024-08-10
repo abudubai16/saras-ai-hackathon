@@ -1,6 +1,11 @@
 import os
 
 
+# Local files
+from src.vector_database import store_embeddings_db
+from src.utils import get_highest_similarity_image
+
+
 # External Dependencies 
 import streamlit as st
 
@@ -13,7 +18,8 @@ def validate_path(path):
 # Function to simulate fetching images
 def fetch_images(description, num_images):
     """Simulate fetching images based on a description."""
-    return [f"https://via.placeholder.com/150?text=Image+{i+1}" for i in range(num_images)]
+    # return [f"https://via.placeholder.com/150?text=Image+{i+1}" for i in range(num_images)]
+    return get_highest_similarity_image(text=description, top_n=num_images)
 
 # Streamlit App
 def main():
@@ -34,6 +40,10 @@ def main():
                 st.success("Valid path!")
                 # Confirm button
                 if st.button("Confirm"):
+
+                    # Store the images if those images are not in the database
+                    store_embeddings_db(images_folder=directory_path)
+                    
                     st.session_state.valid_path = directory_path
                     st.session_state.interface = 2
             else:
