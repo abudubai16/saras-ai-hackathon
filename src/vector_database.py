@@ -1,7 +1,13 @@
 import os
-import numpy as np
-from firebase_config import db
+
+
+# Local Files
 from src.vectorization import generate_embeddings
+
+
+# External Dependencies
+from firebase_config import db
+
 
 def store_embeddings_db(images_folder: str) -> None:
     # Reference to Firestore collection

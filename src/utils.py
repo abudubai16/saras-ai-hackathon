@@ -1,7 +1,14 @@
 import os
+
+
+# Local Files
+from src.vectorization import get_text_embedding
+
+
+# External Dependencies
 import numpy as np
 from firebase_config import db
-from src.vectorization import get_text_embedding
+
 
 # Get and check if the entered path is valid
 def get_valid_path()->str:

@@ -18,7 +18,6 @@ def validate_path(path):
 # Function to simulate fetching images
 def fetch_images(description, num_images):
     """Simulate fetching images based on a description."""
-    # return [f"https://via.placeholder.com/150?text=Image+{i+1}" for i in range(num_images)]
     return get_highest_similarity_image(text=description, top_n=num_images)
 
 # Streamlit App
@@ -29,7 +28,7 @@ def main():
 
     # Interface 1: Welcome and Path Input
     if st.session_state.interface == 1:
-        st.title("Welcome to the Directory Checker")
+        st.title("Welcome to Our Project!!!")
 
         # Text input for the directory path
         directory_path = st.text_input("Enter a directory path:")

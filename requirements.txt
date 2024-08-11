@@ -1,8 +1,11 @@
+firebase_admin==6.5.0
 numpy==2.0.1
 Pillow==10.4.0
 python-dotenv==1.0.1
 sentence_transformers==3.0.1
-singlestoredb==1.6.2
+streamlit==1.35.0
 streamlit==1.37.1
 torch==2.4.0
+transformers==4.41.2
 transformers==4.44.0
+~orch==2.3.0

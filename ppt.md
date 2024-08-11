@@ -1,5 +1,5 @@
 ---
-marp: true
+marp: false
 theme: gaia
 paginate: true
 backgroundColor: #fff
